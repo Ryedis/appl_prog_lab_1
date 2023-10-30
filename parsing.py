@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 import requests
 import time
 
@@ -17,10 +18,22 @@ def get_data(url):
         driver=webdriver.Firefox()
 
         driver.get(url=url)
-        time.sleep(5)
+        driver.maximize_window()
+        time.sleep(1)
+
+    #     flag = driver.find_element(By.CLASS_NAME, "button2__text")
+    #     driver.find_element("span class="button2__text">Ещё картинки</span>")
+    #     driver.execute_script("argument[0].scrollIntoView();", flag)
+
+        for j in range(1,10):
+            for i in range(1,10):
+                driver.execute_script("window.scrollBy(0,document.body.scrollHeight)")
+                time.sleep(0.5)
+            button = driver.find_element(By.CSS_SELECTOR, ".button2").click()
+
         with open("index_selenium.html", "w", encoding="utf-8") as file:
             file.write(driver.page_source)
-
+        time.sleep(10)
     except Exception as ex:
         print(ex)
     finally:
@@ -32,3 +45,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
