@@ -23,7 +23,7 @@ def get_data(request):
     driver.find_element(By.CSS_SELECTOR, 'div.serp-item__preview a.serp-item__link').click()
 
     with open(f"urls_{request}.txt", 'w') as file:
-        for i in range(0, 1500):
+        for i in range(0, 6):
             time.sleep(0.05)
             link = driver.find_element(By.CSS_SELECTOR, "a.Button2_view_action").get_attribute("href")
             print(i)
@@ -56,7 +56,7 @@ def get_links(request):
 
 
 def rename_files(request):
-    folder_path = f"dataset/{request}"
+    folder_path = os.path.join("dataset", request)
     count = 0
 
     for filename in os.listdir(folder_path):
