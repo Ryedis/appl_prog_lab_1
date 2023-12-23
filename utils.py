@@ -6,7 +6,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 
-def get_data(request) -> None :
+def get_data(request: str) -> None :
     url = f"https://yandex.ru/images/search?text={request}"
     headers = {
         "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -34,7 +34,7 @@ def get_data(request) -> None :
     driver.quit()
 
 
-def get_links(request) -> None :
+def get_links(request: str) -> None :
     count = 0
     os.mkdir(os.path.join("dataset", request))
 
@@ -45,7 +45,7 @@ def get_links(request) -> None :
                 time.sleep(1)
                 response = requests.get(url)
                 if response.status_code == 200:
-                    with open(os.path.join("dataset/", request, '/', count, ".jpg"), "wb") as image_file:
+                    with open(os.path.join("dataset", request, '/', count, ".jpg"), "wb") as image_file:
                         image_file.write(response.content)
                     print(f'{count} успешно скачано')
                     count+=1
@@ -55,7 +55,7 @@ def get_links(request) -> None :
                 continue
 
 
-def rename_files(request) -> None :
+def rename_files(request: str) -> None :
     folder_path = os.path.join("dataset", request)
     count = 0
 
